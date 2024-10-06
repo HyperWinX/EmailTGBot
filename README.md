@@ -14,7 +14,7 @@ docker build -t emailtgbot .
 ```
 3. Run it
 ```bash
-docker run --env EMAIL="example@email.com" --env PASSWORD="app_password_for_account" --env TOKEN="tg_bot_token" --detach -it emailtgbot
+docker run --env EMAIL="example@email.com" --env PASSWORD="app_password_for_account" --env TOKEN="tg_bot_token" ROOT="root_user_id" --mount type=bind,source=$(pwd)/data,target=/app/data --detach -it emailtgbot
 ```
 4. It should work now!
 
