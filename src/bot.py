@@ -7,20 +7,19 @@ import html
 import os
 
 def __save_ids() -> None:
-  with open("ids.dat", "w") as file:
+  with open("data/ids.dat", "w") as file:
     for id in IDs:
       file.write(f"{id[0]} - {id[1]}\n")
 
 def __read_ids() -> list[str]:
   file = None
   try:
-    file = open("ids.dat", "r")
+    file = open("data/ids.dat", "r")
   except OSError:
     return []
   
   result = []
   lines = file.readlines()
-  breakpoint()
   for line in lines:
     if (len(line) < 4):
       continue
@@ -62,8 +61,8 @@ def stop(message: telebot.types.Message):
   logger.warning("Stopping bot...")
   __save_ids()
   bot.stop_bot()
-  psutil.Process(os.getpid()).terminate()
+  os._exit(0) 
 
 @bot.message_handler(commands=["status"])
 def status(message: telebot.types.Message):
-  bot.send_message(message.chat.id, f"```\n{html.escape(stats.get_stats())}\n```", parse_mode="MarkdownV2")
+  bot.send_message(message.chat.id,message_thread_id=message.message_thread_id, text=f"```\n{html.escape(stats.get_stats())}\n```", parse_mode="MarkdownV2")
