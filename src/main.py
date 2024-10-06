@@ -27,8 +27,8 @@ def main_loop():
   
   for mail in mails:
     message = "Вы получили новое сообщение!\n\n"
-    message += f"- <b>От кого:</b> {mail.from_}\n"
-    message += f"- <b>Тема:</b> {mail.subject}\n"
+    message += f"- <b>От кого:</b> {html.escape(mail.from_)}\n"
+    message += f"- <b>Тема:</b> {html.escape(mail.subject)}\n"
     if (len(mail.body) > 2):
       message += f"- <b>Текст</b>: \n<blockquote expandable>{html.escape(mail.body)}</blockquote>\n\n"
     if (len(mail.filenames) > 0):
